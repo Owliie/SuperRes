@@ -60,7 +60,7 @@ class ResPixelShuffleCNN(nn.Module):
         self.conv6 = nn.Conv2d(32, self.upscale_factor**2, 3, 1, 1)
         self.conv7 = nn.Conv2d(1, self.upscale_factor**2, 3, 1, 1)
 
-        self._init_weights()
+        self._initialize_weights()
 
     def forward(self, x):
         x = F.relu(self.conv1(x))
@@ -81,7 +81,7 @@ class ResPixelShuffleCNN(nn.Module):
 
         return x
 
-    def _init_weights(self):
+    def _initialize_weights(self):
         init.orthogonal_(self.conv1.weight, init.calculate_gain('relu'))
         init.orthogonal_(self.conv2.weight, init.calculate_gain('relu'))
         init.orthogonal_(self.conv3.weight, init.calculate_gain('relu'))
