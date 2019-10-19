@@ -6,12 +6,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {ContactsContentDialogComponent, ContactsDialogComponent} from './contacts-dialog/contacts-dialog.component';
 import {MatDialogModule} from '@angular/material';
+import {AboutUsContentDialogComponent, AboutUsDialogComponent} from './about-us-dialog/about-us-dialog.component';
+import {ProductContentDialogComponent, ProductDialogComponent} from './product-dialog/product-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContactsDialogComponent,
-    ContactsContentDialogComponent
+    ContactsContentDialogComponent,
+    AboutUsDialogComponent,
+    AboutUsContentDialogComponent,
+    ProductDialogComponent,
+    ProductContentDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -21,8 +27,9 @@ import {MatDialogModule} from '@angular/material';
     MatDialogModule
   ],
   entryComponents: [
-    ContactsDialogComponent,
-    ContactsContentDialogComponent
+    ContactsContentDialogComponent,
+    AboutUsContentDialogComponent,
+    ProductContentDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent],

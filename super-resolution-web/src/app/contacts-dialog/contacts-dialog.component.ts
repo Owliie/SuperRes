@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {MatDialog} from '@angular/material';
 
 @Component({
-selector: 'app-contacts-dialog',
-templateUrl: './contacts-dialog.component.html',
-styleUrls: ['./contacts-dialog.component.scss']
+  selector: 'app-contacts-dialog',
+  templateUrl: './contacts-dialog.component.html',
+  styleUrls: ['./contacts-dialog.component.scss']
 })
 export class ContactsDialogComponent {
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) {
+  }
+
   openContactsDialog() {
     const dialogRef = this.dialog.open(ContactsContentDialogComponent);
 
@@ -21,4 +23,5 @@ export class ContactsDialogComponent {
   selector: 'app-contacts-content-dialog',
   templateUrl: './contacts-dialog.component.html',
 })
-export class ContactsContentDialogComponent {}
+export class ContactsContentDialogComponent {
+}
