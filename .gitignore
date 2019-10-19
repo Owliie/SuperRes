@@ -391,8 +391,9 @@ MigrationBackup/
 # VS Code
 .vscode
 
-# Dataset
+# Dataset && Checkpoints
 */**/dataset/
+*/**/checkpoints/
 
 # Jupyter
 .ipynb_checkpoints

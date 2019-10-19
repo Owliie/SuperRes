@@ -7,12 +7,14 @@ __all__ = [
 ]
 
 
-def SimplePSCNN(nn.Module):
+class SimplePSCNN(nn.Module):
     '''Simple Pixel Shuffle Convolutional Neural Network
     '''
 
     def __init__(self, upscale_factor):
-        self.conv1 = nn.Conv2d(3, 64, 5, 1, 2)
+        super(SimplePSCNN, self).__init__()
+
+        self.conv1 = nn.Conv2d(1, 64, 5, 1, 2)
         self.conv2 = nn.Conv2d(64, 64, 3, 1, 1)
         self.conv3 = nn.Conv2d(64, 32, 3, 1, 1)
         self.conv4 = nn.Conv2d(32, upscale_factor**2, 3, 1, 1)
