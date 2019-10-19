@@ -1,6 +1,8 @@
 body, html {
   background-color: #444444;
+  height: 100%;
 }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 @import '~@angular/material/theming';
 @include mat-core();
