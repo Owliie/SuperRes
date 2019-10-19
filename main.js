@@ -16,7 +16,7 @@ function createWindow () {
     mainWindow.loadFile(
       
       url.format({
-        pathname: path.join(__dirname, './SuperResolution.Web/SuperResolution.Web/ClientApp/dist/index.html'),
+        pathname: path.join(__dirname, '/super-resolution-web/dist/super-resolution/index.html'),
         protocol: "file:",
         slashes: true,
       })
