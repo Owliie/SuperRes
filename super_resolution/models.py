@@ -17,10 +17,10 @@ class PixelShuffleCNN(nn.Module):
         self.conv1 = nn.Conv2d(1, 64, 5, 1, 2)
         self.conv2 = nn.Conv2d(64, 128, 5, 1, 2)
         self.conv3 = nn.Conv2d(128, 256, 5, 1, 2)
-        self.conv4 = nn.Conv2d(256, 512, 3, 1, 2)
+        self.conv4 = nn.Conv2d(256, 512, 3, 1, 1)
         self.conv5 = nn.Conv2d(512, 512, 3, 1, 1)
         self.conv6 = nn.Conv2d(512, 256, 3, 1, 1)
-        self.conv7 = nn.Conv2d(256, 128, 3, 1, 2)
+        self.conv7 = nn.Conv2d(256, 128, 3, 1, 1)
 
         self.conv8 = nn.Conv2d(128, self.upscale_factor**2, 5, 1, 2)
 
