@@ -23,6 +23,8 @@ function createWindow () {
       
       )
 
+    mainWindow.setMenu(null)
+
     mainWindow.on('closed', function () {
 
         mainWindow = null
