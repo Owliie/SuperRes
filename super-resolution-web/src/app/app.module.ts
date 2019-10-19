@@ -4,16 +4,32 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './angular-material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {ContactsContentDialogComponent, ContactsDialogComponent} from './contacts-dialog/contacts-dialog.component';
+import {MatDialogModule} from '@angular/material';
+import {AboutUsContentDialogComponent, AboutUsDialogComponent} from './about-us-dialog/about-us-dialog.component';
+import {ProductContentDialogComponent, ProductDialogComponent} from './product-dialog/product-dialog.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ContactsDialogComponent,
+    ContactsContentDialogComponent,
+    AboutUsDialogComponent,
+    AboutUsContentDialogComponent,
+    ProductDialogComponent,
+    ProductContentDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    ContactsContentDialogComponent,
+    AboutUsContentDialogComponent,
+    ProductContentDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent],
