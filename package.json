@@ -1,11 +1,11 @@
 {
-  "name": "super_res",
+  "name": "suepr-res",
   "version": "1.0.0",
   "description": "Image resolution",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd SuperResolution.Web/SuperResolution.Web/ClientApp && ng build && cd ../../../ && electron ."
+    "start": "cd super-resolution-web && ng build && cd .. && electron ."
   },
   "repository": {
     "type": "git",
