@@ -10,6 +10,7 @@ from dataset import DatasetFromFolder
 
 __all__ = [
     'download_bsd300',
+    'download_nasa_apod',
     'calculate_valid_size',
     'input_transform',
     'target_transform',
@@ -40,6 +41,9 @@ def download_bsd300(dest='./dataset'):
         remove(filepath)
 
     return output_image_dir
+
+def download_nasa_apod(data='./dataset'):
+    pass
 
 def calculate_valid_size(size, upscale_factor):
     return size - (size % upscale_factor)
