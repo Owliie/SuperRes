@@ -18,6 +18,7 @@ parser.add_argument('--batch_size', type=int, default=64, help='training batch s
 parser.add_argument('--test_batch_size', type=int, default=10, help='testing batch size (default: 10)')
 parser.add_argument('--epochs', type=int, default=2, help='number of epochs to train for (default: 2)')
 parser.add_argument('--lr', type=float, default=0.01, help='learnig rate (default: 0.01)')
+parser.add_argument('--warm_start', type=str, default='', help='path to warm start model')
 parser.add_argument('--cuda', action='store_true', help='use cuda?')
 parser.add_argument('--threads', type=int, default=0, help='number of threads for data loader to use (default: 0)')
 parser.add_argument('--pth_dir', type=str, default='checkpoints', help='where to save model checkpoints (default: checkpoints)')
@@ -50,11 +51,17 @@ test_set_loader = DataLoader(dataset=test_set, batch_size=args.test_batch_size, 
 print('Building the model')
 print('='*30)
 net = PixelShuffleCNN(args.upscale_factor).to(device)
+if args.warm_start != '':
+    print('Warm start from model at:', args.warm_start)
+    print('='*15)
+    net.load_state_dict(torch.load(args.warm_start))
 
 ## Criterion
 criterion = nn.MSELoss()
 ## Optimizer
 optimizer = optim.Adam(net.parameters(), lr=args.lr)
+## Scheduler
+lr_scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min')
 
 
 # Train step
@@ -79,7 +86,9 @@ def train(epoch):
 
 # Test step
 def test():
+    avg_mse = 0
     avg_psnr = 0
+
     with torch.no_grad():
         for data in test_set_loader:
             input, target = data[0].to(device), data[1].to(device)
@@ -87,9 +96,12 @@ def test():
             output = net(input)
             mse = criterion(output, target)
             psnr = 10 * log10(1 / mse.item())
+            avg_mse += mse.item()
             avg_psnr += psnr
 
     print(f'=======> Avg. PSNR: {round(avg_psnr / len(test_set_loader), 4)} dB')
+
+    return avg_mse / len(test_set_loader)
 
 # Checkpoint step
 def checkpoint(epoch):
@@ -101,6 +113,8 @@ def checkpoint(epoch):
 print()
 for epoch in range(1, args.epochs+1):
     train(epoch)
-    test()
+    val_loss = test()
+    lr_scheduler.step(val_loss)
+
     checkpoint(epoch)
     print()
