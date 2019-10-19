@@ -25,6 +25,14 @@ args = parser.parse_args()
 
 print(args, end='\n\n')
 
+if args.cuda and not torch.cuda.is_available():
+    raise Exception('No GPU found, please run without: --cuda')
+
+# Set device
+device = torch.device('cuda' if args.cuda else 'cpu')
+print('Device:', device)
+print('='*15)
+
 # Load Train/Test set
 ## Train
 print('Load Train set')
@@ -41,7 +49,7 @@ test_set_loader = DataLoader(dataset=test_set, batch_size=args.test_batch_size, 
 # Init Model
 print('Building the model')
 print('='*30)
-net = PixelShuffleCNN(args.upscale_factor)
+net = PixelShuffleCNN(args.upscale_factor).to(device)
 
 ## Criterion
 criterion = nn.MSELoss()
@@ -54,7 +62,7 @@ def train(epoch):
     epoch_loss = 0.0
 
     for i, data in enumerate(train_set_loader):
-        input, target = data
+        input, target = data[0].to(device), data[1].to(device)
 
         optimizer.zero_grad()
 
@@ -74,7 +82,7 @@ def test():
     avg_psnr = 0
     with torch.no_grad():
         for data in test_set_loader:
-            input, target = data
+            input, target = data[0].to(device), data[1].to(device)
 
             output = net(input)
             mse = criterion(output, target)
@@ -85,7 +93,7 @@ def test():
 
 # Checkpoint step
 def checkpoint(epoch):
-    path = join(args.out, f'model-epoch-{epoch}.pth')
+    path = join(args.pth_dir, f'model-epoch-{epoch}.pth')
     torch.save(net.state_dict(), path)
     print(f'Checkpoint saved to {path}')
 
