@@ -12,7 +12,7 @@ __all__ = [
 
 
 def is_image_file(filename):
-    return any(filename.endswith(extension) for extension in ['.png', '.jpg', '.jpeg'])
+    return any(filename.endswith(extension) for extension in ['.png', '.jpg', '.jpeg', '.gif'])
 
 def load_image(filepath):
     img = Image.open(filepath).convert('YCbCr')

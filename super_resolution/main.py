@@ -8,19 +8,19 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 
 from data import get_test_set, get_train_set
-from models import SimplePSCNN, ResPixelShuffleSRCNN
+from models import PixelShuffleCNN
 
 
 # Train Settings
 parser = argparse.ArgumentParser(description='Super Resolution Training')
-parser.add_argument('--upscale_factor', type=int, default=2, help='super resolution upscale factor (default: 2)')
+parser.add_argument('--upscale_factor', type=int, default=4, help='super resolution upscale factor (default: 4)')
 parser.add_argument('--batch_size', type=int, default=64, help='training batch size (default: 64)')
 parser.add_argument('--test_batch_size', type=int, default=10, help='testing batch size (default: 10)')
 parser.add_argument('--epochs', type=int, default=2, help='number of epochs to train for (default: 2)')
 parser.add_argument('--lr', type=float, default=0.01, help='learnig rate (default: 0.01)')
 parser.add_argument('--cuda', action='store_true', help='use cuda?')
 parser.add_argument('--threads', type=int, default=0, help='number of threads for data loader to use (default: 0)')
-parser.add_argument('--out', type=str, default='checkpoints', help='where to save model checkpoints (default: checkpoints)')
+parser.add_argument('--pth_dir', type=str, default='checkpoints', help='where to save model checkpoints (default: checkpoints)')
 args = parser.parse_args()
 
 print(args, end='\n\n')
@@ -41,7 +41,7 @@ test_set_loader = DataLoader(dataset=test_set, batch_size=args.test_batch_size, 
 # Init Model
 print('Building the model')
 print('='*30)
-net = SimplePSCNN(args.upscale_factor)
+net = PixelShuffleCNN(args.upscale_factor)
 
 ## Criterion
 criterion = nn.MSELoss()
