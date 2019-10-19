@@ -351,3 +351,12 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# Mac OSX
+.DS_Store
+
+# VS Code
+.vscode
+
+# Dataset
+*/**/dataset/
