@@ -382,4 +382,14 @@ healthchecksdb
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
 
-# End of https://www.gitignore.io/api/angular,visualstudio
+# Ionide (cross platform F# VS Code tools) working folder
+.ionide/
+
+# Mac OSX
+.DS_Store
+
+# VS Code
+.vscode
+
+# Dataset
+*/**/dataset/
