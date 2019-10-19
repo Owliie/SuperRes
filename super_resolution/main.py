@@ -106,6 +106,7 @@ def test():
 
 # Checkpoint step
 def checkpoint(epoch):
+    path = join(args.pth_dir, f'model-epoch-{epoch}.pth')
     torch.save(net, path)
     print(f'Checkpoint saved to {path}')
 
