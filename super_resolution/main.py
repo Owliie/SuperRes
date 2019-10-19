@@ -50,11 +50,12 @@ test_set_loader = DataLoader(dataset=test_set, batch_size=args.test_batch_size, 
 # Init Model
 print('Building the model')
 print('='*30)
-net = PixelShuffleCNN(args.upscale_factor).to(device)
 if args.warm_start != '':
     print('Warm start from model at:', args.warm_start)
     print('='*15)
-    net.load_state_dict(torch.load(args.warm_start))
+    net = torch.load(args.warm_start).to(device)
+else:
+    net = PixelShuffleCNN(args.upscale_factor).to(device)
 
 ## Criterion
 criterion = nn.MSELoss()
@@ -105,8 +106,7 @@ def test():
 
 # Checkpoint step
 def checkpoint(epoch):
-    path = join(args.pth_dir, f'model-epoch-{epoch}.pth')
-    torch.save(net.state_dict(), path)
+    torch.save(net, path)
     print(f'Checkpoint saved to {path}')
 
 # RUN
