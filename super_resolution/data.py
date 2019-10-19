@@ -3,6 +3,10 @@ import urllib.request
 from os import makedirs, remove
 from os.path import basename, exists, join
 
+from torchvision.transforms import transforms
+
+from .CONFIG import *
+
 __all__ = [
     'download_bsd300',
 ]
@@ -30,6 +34,19 @@ def download_bsd300(dest='./dataset'):
         remove(file_path)
 
     return output_image_dir
+
+def input_transform(h=IMAGE_HEIGHT, w=IMAGE_WIDTH, scale_factor=SCALE_FACTOR):
+    return transforms.Compose([
+        transforms.CenterCrop((h, w)),
+        transforms.Resize((h // scale_factor, w // scale_factor)),
+        transforms.ToTensor(),
+    ])
+
+def target_transforms(h=IMAGE_HEIGHT, w=IMAGE_WIDTH):
+    return transforms.Compose([
+        transforms.CenterCrop((h, w)),
+        transforms.ToTensor(),
+    ])
 
 
 if __name__ == '__main__':
