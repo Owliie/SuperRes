@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {ContactsDialogComponent} from './contacts-dialog/contacts-dialog.component';
 
 /**
  * @title Autosize sidenav
@@ -7,7 +8,12 @@ import {Component} from '@angular/core';
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
+  providers: [ContactsDialogComponent]
 })
 export class AppComponent {
-  showFiller = false;
+  constructor(private contacts: ContactsDialogComponent){}
+
+  public openContactsDialog(): void {
+    this.contacts.openContactsDialog();
+  }
 }
