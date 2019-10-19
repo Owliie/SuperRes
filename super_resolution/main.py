@@ -8,7 +8,7 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 
 from data import get_test_set, get_train_set
-from models import SimplePSCNN
+from models import SimplePSCNN, ResPixelShuffleSRCNN
 
 
 # Train Settings
