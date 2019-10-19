@@ -13,7 +13,15 @@ function createWindow () {
     }
   })
 
-    mainWindow.loadFile('./SuperResolution.Web/SuperResolution.Web/ClientApp/src/index.html')
+    mainWindow.loadFile(
+      
+      url.format({
+        pathname: path.join(__dirname, './SuperResolution.Web/SuperResolution.Web/ClientApp/dist/index.html'),
+        protocol: "file:",
+        slashes: true,
+      })
+      
+      )
 
     mainWindow.on('closed', function () {
 
