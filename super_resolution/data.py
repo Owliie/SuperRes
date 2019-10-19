@@ -10,6 +10,7 @@ from dataset import DatasetFromFolder
 
 __all__ = [
     'download_bsd300',
+    'calculate_valid_size',
     'input_transform',
     'target_transform',
     'get_train_set',
@@ -40,13 +41,13 @@ def download_bsd300(dest='./dataset'):
 
     return output_image_dir
 
-def calculate_valid_size(size, scale_factor):
-    return size - (size % scale_factor)
+def calculate_valid_size(size, upscale_factor):
+    return size - (size % upscale_factor)
 
-def input_transform(h, w, scale_factor):
+def input_transform(h, w, upscale_factor):
     return transforms.Compose([
         transforms.CenterCrop((h, w)),
-        transforms.Resize((h // scale_factor, w // scale_factor)),
+        transforms.Resize((h // upscale_factor, w // upscale_factor)),
         transforms.ToTensor(),
     ])
 
@@ -56,23 +57,23 @@ def target_transform(h, w):
         transforms.ToTensor(),
     ])
 
-def get_train_set(h=IMAGE_HEIGHT, w=IMAGE_WIDTH, scale_factor=SCALE_FACTOR):
-    h = calculate_valid_size(h, scale_factor)
-    w = calculate_valid_size(w, scale_factor)
+def get_train_set(h=IMAGE_HEIGHT, w=IMAGE_WIDTH, upscale_factor=UPSCALE_FACTOR):
+    h = calculate_valid_size(h, upscale_factor)
+    w = calculate_valid_size(w, upscale_factor)
 
     return DatasetFromFolder(
         join(download_bsd300(), 'train'),
-        input_transfrom=input_transform(h, w, scale_factor),
+        input_transfrom=input_transform(h, w, upscale_factor),
         target_transform=target_transform(h, w),
     )
 
-def get_test_set(h=IMAGE_HEIGHT, w=IMAGE_WIDTH, scale_factor=SCALE_FACTOR):
-    h = calculate_valid_size(h, scale_factor)
-    w = calculate_valid_size(w, scale_factor)
+def get_test_set(h=IMAGE_HEIGHT, w=IMAGE_WIDTH, upscale_factor=UPSCALE_FACTOR):
+    h = calculate_valid_size(h, upscale_factor)
+    w = calculate_valid_size(w, upscale_factor)
 
     return DatasetFromFolder(
         join(download_bsd300(), 'test'),
-        input_transfrom=input_transform(h, w, scale_factor),
+        input_transfrom=input_transform(h, w, upscale_factor),
         target_transform=target_transform(h, w),
     )
 
