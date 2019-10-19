@@ -40,6 +40,9 @@ def download_bsd300(dest='./dataset'):
 
     return output_image_dir
 
+def calculate_valid_size(size, scale_factor):
+    return size - (size % scale_factor)
+
 def input_transform(h, w, scale_factor):
     return transforms.Compose([
         transforms.CenterCrop((h, w)),
@@ -54,6 +57,9 @@ def target_transform(h, w):
     ])
 
 def get_train_set(h=IMAGE_HEIGHT, w=IMAGE_WIDTH, scale_factor=SCALE_FACTOR):
+    h = calculate_valid_size(h, scale_factor)
+    w = calculate_valid_size(w, scale_factor)
+
     return DatasetFromFolder(
         join(download_bsd300(), 'train'),
         input_transfrom=input_transform(h, w, scale_factor),
@@ -61,6 +67,9 @@ def get_train_set(h=IMAGE_HEIGHT, w=IMAGE_WIDTH, scale_factor=SCALE_FACTOR):
     )
 
 def get_test_set(h=IMAGE_HEIGHT, w=IMAGE_WIDTH, scale_factor=SCALE_FACTOR):
+    h = calculate_valid_size(h, scale_factor)
+    w = calculate_valid_size(w, scale_factor)
+
     return DatasetFromFolder(
         join(download_bsd300(), 'test'),
         input_transfrom=input_transform(h, w, scale_factor),
