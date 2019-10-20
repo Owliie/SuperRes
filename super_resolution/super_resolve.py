@@ -19,15 +19,19 @@ img = Image.open(args.input_image).convert('YCbCr')
 
 Y, Cb, Cr = img.split()
 input = ToTensor()(Y).view(1, -1, Y.size[1], Y.size[0])
-
 output = net(input)[0].detach().numpy()
-output *= 255
-output = output.clip(0, 255)
 
-out_img_Y = Image.fromarray(np.uint8(output[0]), mode='L')
-out_img_Cb = Cb.resize(out_img_Y.size, Image.BICUBIC)
-out_img_Cr = Cr.resize(out_img_Y.size, Image.BICUBIC)
-out_img = Image.merge('YCbCr', [out_img_Y, out_img_Cb, out_img_Cr]).convert('RGB')
+def YtoRGB(x):
+    x *= 255
+    x = x.clip(0, 255)
 
+    out_img_Y = Image.fromarray(np.uint8(x[0]), mode='L')
+    out_img_Cb = Cb.resize(out_img_Y.size, Image.BICUBIC)
+    out_img_Cr = Cr.resize(out_img_Y.size, Image.BICUBIC)
+    out_img = Image.merge('YCbCr', [out_img_Y, out_img_Cb, out_img_Cr]).convert('RGB')
+
+    return out_img
+
+out_img = YtoRGB(output)
 out_img.save(args.output_image)
 print('output image saved to ', args.output_image)
