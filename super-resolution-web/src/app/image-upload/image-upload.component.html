@@ -1,5 +1,5 @@
-<div class="image-upload-container">
-  <h3 *ngIf="!selectedFile">Select an image</h3>
+<div *ngIf="!selectedFile || selectedFile.status === 'fail'" class="image-upload-container">
+  <h3>Select an image</h3>
   <br>
   <div class="wrapper">
     <div class="file-upload">
@@ -13,16 +13,17 @@
   </div>
 </div>
 
-<div *ngIf="selectedFile" class="img-preview-container">
+<div *ngIf="selectedFile && selectedFile.status === 'ok'" class="img-preview-container">
 
   <div class="img-preview{{selectedFile.status === 'fail' ? '-error' : ''}}"
        [ngStyle]="{'background-image': 'url('+ selectedFile.src + ')'}">
   </div>
+  <button class="btn btn-warning" *ngIf="selectedFile.status === 'ok'" (click)="disposeImage()">Dispose</button>
 
   <div *ngIf="selectedFile.pending" class="img-loading-overlay">
     <div class="img-spinning-circle"></div>
   </div>
-
-  <div *ngIf="selectedFile.status === 'ok'" [ngClass]="['alert', 'alert-success']"> Image Uploaded Successfully!</div>
-  <div *ngIf="selectedFile.status === 'fail'" [ngClass]="['alert', 'alert-danger']"> Image Upload Failed!</div>
 </div>
+
+<div *ngIf="selectedFile && selectedFile.status === 'ok'" [ngClass]="['alert', 'alert-success']"> Image Uploaded Successfully!</div>
+<div *ngIf="selectedFile && selectedFile.status === 'fail'" [ngClass]="['alert', 'alert-danger']"> Image Upload Failed!</div>
