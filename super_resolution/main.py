@@ -8,7 +8,7 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 
 from data import get_test_set, get_train_set
-from models import PixelShuffleCNN
+from models import PixelShuffleCNN, GradualPixelShuffleCNN
 
 
 # Train Settings
@@ -55,7 +55,7 @@ if args.warm_start != '':
     print('='*15)
     net = torch.load(args.warm_start).to(device)
 else:
-    net = PixelShuffleCNN(args.upscale_factor).to(device)
+    net = GradualPixelShuffleCNN(args.upscale_factor).to(device)
 
 ## Criterion
 criterion = nn.MSELoss()

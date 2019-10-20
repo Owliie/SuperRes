@@ -116,7 +116,7 @@ def target_transform(h, w):
         transforms.ToTensor(),
     ])
 
-def get_train_set(h=IMAGE_HEIGHT, w=IMAGE_WIDTH, download=download_nasa_apod, upscale_factor=None):
+def get_train_set(h=IMAGE_HEIGHT, w=IMAGE_WIDTH, download=download_bsd300, upscale_factor=None):
     h = calculate_valid_size(h, upscale_factor)
     w = calculate_valid_size(w, upscale_factor)
 
@@ -126,7 +126,7 @@ def get_train_set(h=IMAGE_HEIGHT, w=IMAGE_WIDTH, download=download_nasa_apod, up
         target_transform=target_transform(h, w),
     )
 
-def get_test_set(h=IMAGE_HEIGHT, w=IMAGE_WIDTH, download=download_nasa_apod, upscale_factor=None):
+def get_test_set(h=IMAGE_HEIGHT, w=IMAGE_WIDTH, download=download_bsd300, upscale_factor=None):
     h = calculate_valid_size(h, upscale_factor)
     w = calculate_valid_size(w, upscale_factor)
 
