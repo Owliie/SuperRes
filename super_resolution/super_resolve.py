@@ -10,8 +10,7 @@ from torchvision.transforms import ToPILImage, ToTensor
 parser = argparse.ArgumentParser(description='Super Resolution')
 parser.add_argument('--model_pth', type=str, required=True, help='model .pth file, required')
 parser.add_argument('--input_image', type=str, required=True, help='input image filename, required')
-parser.add_argument('--output_image', type=str, default='out.jpg', help='image output file name (default: out.jpeg)')
-parser.add_argument('--upscale_factor', type=int, default=2, help='super resolution upscale factor (default: 2)')
+parser.add_argument('--output_image', type=str, default='out.jpg', help='image output file name (default: out.jpg)')
 args = parser.parse_args()
 
 net = torch.load(args.model_pth, map_location=torch.device('cpu'))
