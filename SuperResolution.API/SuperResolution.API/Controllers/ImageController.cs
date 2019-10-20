@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc;
 using SuperResolution.API.PythonExecutor;
 
@@ -13,18 +10,16 @@ namespace SuperResolution.API.Controllers
     [ApiController]
     public class ImageController : ControllerBase
     {
-        private IFormFile image;
-
         // GET: api/Image
         [HttpGet]
-        public IFormFile Get()
+        public async System.Threading.Tasks.Task<IActionResult> GetAsync()
         {
-            return this.image;
+            return File(await System.IO.File.ReadAllBytesAsync(Constants.OutputImage), "application/octet-stream");
         }
 
         // POST: api/Image
         [HttpPost]
-        public IActionResult Post([FromForm]IFormFile image)
+        public async System.Threading.Tasks.Task<IActionResult> PostAsync([FromForm]IFormFile image)
         {
             MLSharpPython ml = new MLSharpPython();
             if (System.IO.File.Exists(Constants.InputImage))
@@ -33,7 +28,7 @@ namespace SuperResolution.API.Controllers
             }
             using (var fileStream = new FileStream(Constants.InputImage, FileMode.Create))
             {
-                image.CopyTo(fileStream);
+                await image.CopyToAsync(fileStream);
             }
 
             string error = string.Empty;

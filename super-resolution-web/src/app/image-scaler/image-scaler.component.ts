@@ -10,6 +10,7 @@ export class ImageScalerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }
