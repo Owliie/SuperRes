@@ -52,3 +52,18 @@ $input-color: #6A1B9A;
     }
   }
 }
+
+.success-snackbar {
+  background-color: lightgreen;
+}
+.danger-snackbar {
+  background-color: lightcoral;
+}
+
+.spinner{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
