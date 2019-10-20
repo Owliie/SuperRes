@@ -80,16 +80,16 @@ def save_response_content(response, destination):
                 f.write(chunk)
 
 def download_nasa_apod(dest='./dataset'):
-    output_image_dir = join(dest, 'NASA/dataset')
-    file_id = '1sRuhlGbemqhVgiSgk5ddFM9157EVJxxW'
+    output_image_dir = join(dest, 'NASA/images')
+    file_id = '19a36iKIcQZRgYWyQXN7UGf3dbBx8VI9E'
 
     if not exists(dest):
         makedirs(dest)
 
     if not exists(output_image_dir):
-        filepath = join(dest, 'nasa.zip')
+        filepath = join(dest, 'images.zip')
 
-        print('downloading file from gdoc...', file_id)        
+        print('downloading file from google drive...', file_id)        
         download_file_from_google_drive(file_id, filepath)
 
         print('extracting data...')
@@ -116,22 +116,22 @@ def target_transform(h, w):
         transforms.ToTensor(),
     ])
 
-def get_train_set(h=IMAGE_HEIGHT, w=IMAGE_WIDTH, upscale_factor=None):
+def get_train_set(h=IMAGE_HEIGHT, w=IMAGE_WIDTH, download=download_nasa_apod, upscale_factor=None):
     h = calculate_valid_size(h, upscale_factor)
     w = calculate_valid_size(w, upscale_factor)
 
     return DatasetFromFolder(
-        join(download_nasa_apod(), 'train'),
+        join(download(), 'train'),
         input_transfrom=input_transform(h, w, upscale_factor),
         target_transform=target_transform(h, w),
     )
 
-def get_test_set(h=IMAGE_HEIGHT, w=IMAGE_WIDTH, upscale_factor=None):
+def get_test_set(h=IMAGE_HEIGHT, w=IMAGE_WIDTH, download=download_nasa_apod, upscale_factor=None):
     h = calculate_valid_size(h, upscale_factor)
     w = calculate_valid_size(w, upscale_factor)
 
     return DatasetFromFolder(
-        join(download_nasa_apod(), 'test'),
+        join(download(), 'test'),
         input_transfrom=input_transform(h, w, upscale_factor),
         target_transform=target_transform(h, w),
     )
