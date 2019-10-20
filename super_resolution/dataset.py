@@ -16,8 +16,8 @@ def is_image_file(filename):
 
 def load_image(filepath):
     img = Image.open(filepath).convert('YCbCr')
-    y, _, _ = img.split()
-    return y
+    Y, _, _ = img.split()
+    return Y
 
 class DatasetFromFolder(data.Dataset):
     
