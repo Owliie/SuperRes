@@ -1,5 +1,6 @@
 import tarfile
 import urllib.request
+import zipfile
 from os import makedirs, remove
 from os.path import basename, exists, join
 
@@ -12,6 +13,9 @@ from dataset import DatasetFromFolder
 
 __all__ = [
     'download_bsd300',
+    'download_file_from_google_drive',
+    'get_confirm_token',
+    'save_response_content',
     'download_nasa_apod',
     'calculate_valid_size',
     'input_transform',
@@ -25,8 +29,10 @@ def download_bsd300(dest='./dataset'):
     output_image_dir = join(dest, 'BSDS300/images')
     url = 'http://www2.eecs.berkeley.edu/Research/Projects/CS/vision/bsds/BSDS300-images.tgz'
 
-    if not exists(dest) and not exists(output_image_dir):
+    if not exists(dest):
         makedirs(dest)
+
+    if not exists(output_image_dir):
 
         print('downloading url...', url)
         data = urllib.request.urlopen(url)
@@ -45,16 +51,16 @@ def download_bsd300(dest='./dataset'):
     return output_image_dir
 
 def download_file_from_google_drive(id, destination):
-    URL = "https://docs.google.com/uc?export=download"
+    url = "https://docs.google.com/uc?export=download"
 
     session = requests.Session()
 
-    response = session.get(URL, params = { 'id' : id }, stream = True)
+    response = session.get(url, params = { 'id' : id }, stream = True)
     token = get_confirm_token(response)
 
     if token:
         params = { 'id' : id, 'confirm' : token }
-        response = session.get(URL, params = params, stream = True)
+        response = session.get(url, params = params, stream = True)
 
     save_response_content(response, destination)    
 
@@ -66,15 +72,33 @@ def get_confirm_token(response):
     return None
 
 def save_response_content(response, destination):
-    CHUNK_SIZE = 32768
+    chunk_size = 32768
 
     with open(destination, "wb") as f:
-        for chunk in response.iter_content(CHUNK_SIZE):
+        for chunk in response.iter_content(chunk_size):
             if chunk: # filter out keep-alive new chunks
                 f.write(chunk)
 
 def download_nasa_apod(dest='./dataset'):
-    download_file_from_google_drive('1sRuhlGbemqhVgiSgk5ddFM9157EVJxxW', join(dest, 'NASA.gzip'))
+    output_image_dir = join(dest, 'NASA/dataset')
+    file_id = '1sRuhlGbemqhVgiSgk5ddFM9157EVJxxW'
+
+    if not exists(dest):
+        makedirs(dest)
+
+    if not exists(output_image_dir):
+        filepath = join(dest, 'nasa.zip')
+
+        print('downloading file from gdoc...', file_id)        
+        download_file_from_google_drive(file_id, filepath)
+
+        print('extracting data...')
+        with zipfile.ZipFile(filepath, 'r') as zip_ref:
+            zip_ref.extractall(join(dest, 'NASA/'))
+
+        remove(filepath)
+
+    return output_image_dir
 
 def calculate_valid_size(size, upscale_factor):
     return size - (size % upscale_factor)
@@ -97,7 +121,7 @@ def get_train_set(h=IMAGE_HEIGHT, w=IMAGE_WIDTH, upscale_factor=None):
     w = calculate_valid_size(w, upscale_factor)
 
     return DatasetFromFolder(
-        join(download_bsd300(), 'train'),
+        join(download_nasa_apod(), 'train'),
         input_transfrom=input_transform(h, w, upscale_factor),
         target_transform=target_transform(h, w),
     )
@@ -107,7 +131,7 @@ def get_test_set(h=IMAGE_HEIGHT, w=IMAGE_WIDTH, upscale_factor=None):
     w = calculate_valid_size(w, upscale_factor)
 
     return DatasetFromFolder(
-        join(download_bsd300(), 'test'),
+        join(download_nasa_apod(), 'test'),
         input_transfrom=input_transform(h, w, upscale_factor),
         target_transform=target_transform(h, w),
     )
