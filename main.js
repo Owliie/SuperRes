@@ -11,10 +11,7 @@ function createWindow() {
         height: 720,
     });
 
-    mainWindow.loadURL(`file://${__dirname}/super-resolution-web/dist/super-resolution/index.html`);
-    // mainWindow.loadFile('./super-resolution-web/dist/super-resolution/index.html');
-
-    //mainWindow.setMenu(null)
+    mainWindow.loadURL('file:///home/martin/Programming/SuperRes/super-resolution-web/dist/super-resolution/index.html');
 
     mainWindow.on('closed', function () {
         mainWindow = null;
