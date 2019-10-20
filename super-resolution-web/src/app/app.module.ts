@@ -8,6 +8,9 @@ import {ContactsContentDialogComponent, ContactsDialogComponent} from './contact
 import {MatDialogModule} from '@angular/material';
 import {AboutUsContentDialogComponent, AboutUsDialogComponent} from './about-us-dialog/about-us-dialog.component';
 import {ProductContentDialogComponent, ProductDialogComponent} from './product-dialog/product-dialog.component';
+import { ImageUploadComponent } from './image-upload/image-upload.component';
+import {HttpClientModule} from '@angular/common/http';
+import { ImageScalerComponent } from './image-scaler/image-scaler.component';
 
 @NgModule({
   declarations: [
@@ -17,14 +20,17 @@ import {ProductContentDialogComponent, ProductDialogComponent} from './product-d
     AboutUsDialogComponent,
     AboutUsContentDialogComponent,
     ProductDialogComponent,
-    ProductContentDialogComponent
+    ProductContentDialogComponent,
+    ImageUploadComponent,
+    ImageScalerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
-    MatDialogModule
+    MatDialogModule,
+    HttpClientModule
   ],
   entryComponents: [
     ContactsContentDialogComponent,

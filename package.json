@@ -4,8 +4,12 @@
   "description": "Image resolution",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd super-resolution-web && ng build && cd .. && electron ."
+    "start": "cd super-resolution-web && ng build && cd .. && electron .",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "electron": "" 
   },
   "repository": {
     "type": "git",

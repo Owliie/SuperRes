@@ -1,7 +1,4 @@
-const {
-    app,
-    BrowserWindow
-} = require('electron')
+const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const url = require('url')
 
@@ -13,7 +10,8 @@ function createWindow() {
         width: 1080,
         height: 720,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js')
+            preload: path.join(__dirname, 'preload.js'),
+            webSecurity: false
         }
     })
 
@@ -25,7 +23,7 @@ function createWindow() {
         })
     )
 
-    // mainWindow.setMenu(null)
+    //mainWindow.setMenu(null)
 
     mainWindow.on('closed', function () {
         mainWindow = null
