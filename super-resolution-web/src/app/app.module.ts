@@ -5,7 +5,7 @@ import { AngularMaterialModule } from './angular-material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {ContactsContentDialogComponent, ContactsDialogComponent} from './contacts-dialog/contacts-dialog.component';
-import {MatDialogModule} from '@angular/material';
+import {MatDialogModule, MatProgressSpinnerModule, MatSnackBar, MatSnackBarModule} from '@angular/material';
 import {AboutUsContentDialogComponent, AboutUsDialogComponent} from './about-us-dialog/about-us-dialog.component';
 import {ProductContentDialogComponent, ProductDialogComponent} from './product-dialog/product-dialog.component';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
@@ -30,7 +30,10 @@ import { ImageScalerComponent } from './image-scaler/image-scaler.component';
     BrowserAnimationsModule,
     AngularMaterialModule,
     MatDialogModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule,
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule
   ],
   entryComponents: [
     ContactsContentDialogComponent,
