@@ -15,9 +15,8 @@ def is_image_file(filename):
     return any(filename.endswith(extension) for extension in ['.png', '.jpg', '.jpeg', '.gif'])
 
 def load_image(filepath):
-    img = Image.open(filepath).convert('YCbCr')
-    y, _, _ = img.split()
-    return y
+    img = Image.open(filepath).convert('RGB')
+    return img
 
 class DatasetFromFolder(data.Dataset):
     
