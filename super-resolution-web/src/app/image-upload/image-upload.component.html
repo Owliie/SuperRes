@@ -2,14 +2,14 @@
   <h3>Select an image</h3>
   <br>
   <div class="wrapper">
-    <div class="file-upload">
+    <form class="file-upload">
       <input #imageInput
              type="file"
              accept="image/*"
              id="upload-image-input"
              (change)="processFile(imageInput)">
       <mat-icon id="arrow">arrow_upward</mat-icon>
-    </div>
+    </form>
   </div>
 </div>
 

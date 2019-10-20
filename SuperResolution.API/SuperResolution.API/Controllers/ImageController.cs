@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,6 @@ namespace SuperResolution.API.Controllers
     public class ImageController : ControllerBase
     {
         private IFormFile image;
-        private string imagePath = "\"C:/git/SuperRes/super_resolution/out.jpeg\"";
 
         // GET: api/Image
         [HttpGet]
@@ -24,28 +24,26 @@ namespace SuperResolution.API.Controllers
 
         // POST: api/Image
         [HttpPost]
-        public IActionResult Post([FromBody] string value)
+        public IActionResult Post([FromForm]IFormFile image)
         {
-//            MLSharpPython ml = new MLSharpPython("C:/Users/mi6o_/AppData/Local/Programs/Python/Python37/python.exe");
-            MLSharpPython ml = new MLSharpPython("C:/Users/Eti Tsvetkova/AppData/Local/Programs/Python/Python37/python.exe");
-            string error = string.Empty;
-            //ml.ExecutePythonScript("", out error);
-            //            ml.ExecutePythonScript("\"B:/Visual Studio Projects/SuperRes/super_resolution/super_resolve.py\"" +
-            //                                   " --model_pth \"B:/Visual Studio Projects/SuperRes/super_resolution/model-basic.pth\"" +
-            //                                   " --input_image \"B:/Visual Studio Projects/SuperRes/super_resolution/out.jpeg\"", out error);
-
-            ml.ExecutePythonScript("\"C:/git/SuperRes/super_resolution/super_resolve.py\"" +
-                                   " --model_pth \"C:/git/SuperRes/super_resolution/model-basic.pth\"" +
-                                    " --input_image " + this.imagePath, out error);
-            using (var stream = System.IO.File.OpenRead(this.imagePath))
+            MLSharpPython ml = new MLSharpPython();
+            if (System.IO.File.Exists(Constants.InputImage))
             {
-                this.image = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name))
-                {
-                    Headers = new HeaderDictionary(),
-                    ContentType = "image/jpeg"
-                };
+                System.IO.File.Delete(Constants.InputImage);
             }
+            using (var fileStream = new FileStream(Constants.InputImage, FileMode.Create))
+            {
+                image.CopyTo(fileStream);
+            }
+
+            string error = string.Empty;
+            ml.ExecutePythonScript("../../super_resolution/super_resolve.py " +
+                                   $"--model_pth \"{Constants.ModelBasic}\" " +
+                                   $"--input_image \"{Constants.InputImage}\" " +
+                                   $"--output_image \"{Constants.OutputImage}\"", out error);
+
             Console.WriteLine(error);
+
             return this.Ok();
         }
     }
