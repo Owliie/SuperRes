@@ -9,7 +9,7 @@ import {MatDialog} from '@angular/material';
 export class AboutUsDialogComponent {
   constructor(public dialog: MatDialog) {}
   openAboutUsDialog() {
-    const dialogRef = this.dialog.open(AboutUsContentDialogComponent);
+    const dialogRef = this.dialog.open(AboutUsContentDialogComponent, {width: '50%'});
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
