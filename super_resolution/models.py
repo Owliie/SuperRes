@@ -61,7 +61,7 @@ class GradualPixelShuffleCNN(nn.Module):
         self.conv8 = nn.Conv2d(128, 256, 3, 1, 1)
         self.conv9 = nn.Conv2d(256, 128, 3, 1, 1)
 
-        self.conv8 = nn.Conv2d(128, self.upscale_factor, 3, 1, 1)
+        self.conv10 = nn.Conv2d(128, self.upscale_factor, 3, 1, 1)
 
         self._initialize_weights()
 
