@@ -69,7 +69,7 @@ lr_scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min')
 def train(epoch):
     epoch_loss = 0.0
 
-    for i, data in enumerate(train_set_loader):
+    for i, data in enumerate(train_set_loader, 1):
         input, target = data[0].to(device), data[1].to(device)
 
         optimizer.zero_grad()
