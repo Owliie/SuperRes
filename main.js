@@ -1,44 +1,35 @@
-const {app, BrowserWindow} = require('electron')
-const path = require('path')
-const url = require('url')
+const {app, BrowserWindow} = require('electron');
+const path = require('path');
+const url = require('url');
 
-let mainWindow
+let mainWindow;
 
 function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
         width: 1080,
         height: 720,
-        webPreferences: {
-            preload: path.join(__dirname, 'preload.js'),
-            webSecurity: false
-        }
-    })
+    });
 
-    mainWindow.loadFile(
-        url.format({
-            pathname: path.join(__dirname, './super-resolution-web/dist/super-resolution/index.html'),
-            protocol: "file:",
-            slashes: true,
-        })
-    )
+    mainWindow.loadURL(`file://${__dirname}/super-resolution-web/dist/super-resolution/index.html`);
+    // mainWindow.loadFile('./super-resolution-web/dist/super-resolution/index.html');
 
     //mainWindow.setMenu(null)
 
     mainWindow.on('closed', function () {
-        mainWindow = null
-    })
+        mainWindow = null;
+    });
 }
 
-app.on('ready', createWindow)
+app.on('ready', createWindow);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
 
-    if (process.platform !== 'darwin') app.quit()
-})
+    if (process.platform !== 'darwin') app.quit();
+});
 
 app.on('activate', function () {
 
-    if (mainWindow === null) createWindow()
-})
+    if (mainWindow === null) createWindow();
+});

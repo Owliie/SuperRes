@@ -4,12 +4,12 @@
   "description": "Image resolution",
   "main": "main.js",
   "scripts": {
-    "start": "cd super-resolution-web && ng build && cd .. && electron .",
+    "start": "electron . && cd super-resolution-web",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "electron": "" 
+    "electron": ""
   },
   "repository": {
     "type": "git",
@@ -26,11 +26,16 @@
   },
   "homepage": "https://github.com/Owliie/SuperRes#readme",
   "dependencies": {
-    "electron": "^6.0.12",
+    "electron": "git+ssh://git@github.com/johannesjo/electron-prebuilt.git",
     "node": "^12.12.0",
     "npm": "^6.12.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.803.12"
+    "@angular-devkit/build-angular": "^0.803.12",
+    "@angular/compiler": "8.2.11",
+    "@angular/compiler-cli": "^8.0.0",
+    "@angular/core": "8.2.11",
+    "electron": "^6.0.12",
+    "rxjs": "6.5.3"
   }
 }
