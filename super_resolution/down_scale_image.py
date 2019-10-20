@@ -19,7 +19,7 @@ h, w = calculate_valid_size(IMAGE_HEIGHT, args.downscale_factor), \
         calculate_valid_size(IMAGE_WIDTH, args.downscale_factor)
 
 transform = input_transform(h, w, args.downscale_factor)
-to_pil = ToPILImage(mode='RGB')
+to_pil = ToPILImage()
 
 # Image
 ## Load
