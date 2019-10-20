@@ -10,7 +10,7 @@ namespace SuperResolution.API.PythonExecutor
     {
         private readonly string filePythonExePath;
 
-        public MLSharpPython(string exePythonPath)
+        public MLSharpPython(string exePythonPath = "python")
         {
             filePythonExePath = exePythonPath;
         }
