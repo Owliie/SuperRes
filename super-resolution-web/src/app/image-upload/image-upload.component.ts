@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {ImageService} from '../image.service';
+import {MatSnackBar, MatSnackBarRef, SimpleSnackBar} from '@angular/material';
 
 class ImageSnippet {
   pending = false;
@@ -17,17 +18,23 @@ export class ImageUploadComponent {
 
   selectedFile: ImageSnippet;
 
-  constructor(private imageService: ImageService) {}
+  constructor(private imageService: ImageService, private snackBar: MatSnackBar) {}
 
   private onSuccess() {
     this.selectedFile.pending = false;
     this.selectedFile.status = 'ok';
+    this.snackBar.open('Image uploaded successfully!',
+      'Dismiss',
+      {duration: 2000, panelClass: ['success-snackbar']});
   }
 
   private onError() {
     this.selectedFile.pending = false;
     this.selectedFile.status = 'fail';
     this.selectedFile.src = '';
+    this.snackBar.open('Image upload failed!',
+      'Dismiss',
+      {duration: 2000, panelClass: ['danger-snackbar']});
   }
 
   processFile(imageInput: any) {

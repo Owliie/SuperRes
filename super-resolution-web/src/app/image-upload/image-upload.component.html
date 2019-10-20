@@ -13,6 +13,10 @@
   </div>
 </div>
 
+<div *ngIf="selectedFile && selectedFile.pending" class="spinner">
+  <mat-spinner></mat-spinner>
+</div>
+
 <div *ngIf="selectedFile && selectedFile.status === 'ok'" class="img-preview-container">
 
   <div class="img-preview{{selectedFile.status === 'fail' ? '-error' : ''}}"
@@ -24,6 +28,3 @@
     <div class="img-spinning-circle"></div>
   </div>
 </div>
-
-<div *ngIf="selectedFile && selectedFile.status === 'ok'" [ngClass]="['alert', 'alert-success']"> Image Uploaded Successfully!</div>
-<div *ngIf="selectedFile && selectedFile.status === 'fail'" [ngClass]="['alert', 'alert-danger']"> Image Upload Failed!</div>
