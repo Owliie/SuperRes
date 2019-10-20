@@ -44,6 +44,7 @@ export class ImageUploadComponent {
           this.onSuccess();
         },
         (err) => {
+          console.error(err);
           this.onError();
         });
     });
