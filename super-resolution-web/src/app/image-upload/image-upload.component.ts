@@ -50,4 +50,8 @@ export class ImageUploadComponent {
 
     reader.readAsDataURL(file);
   }
+
+  disposeImage() {
+    this.selectedFile = null;
+  }
 }

@@ -15,3 +15,4 @@ $my-custom-warn: mat-palette($mat-lime);
 $my-custom-theme: mat-dark-theme($my-custom-primary, $my-custom-accent, $my-custom-warn);
 
 @include angular-material-theme($my-custom-theme);
+//@import '~bootstrap/dist/css/bootstrap.min.css';
