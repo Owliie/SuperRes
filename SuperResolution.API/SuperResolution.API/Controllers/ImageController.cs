@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc;
+using SuperResolution.API.PythonExecutor;
 
 namespace SuperResolution.API.Controllers
 {
@@ -11,37 +12,41 @@ namespace SuperResolution.API.Controllers
     [ApiController]
     public class ImageController : ControllerBase
     {
+        private IFormFile image;
+        private string imagePath = "\"C:/git/SuperRes/super_resolution/out.jpeg\"";
+
         // GET: api/Image
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IFormFile Get()
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/Image/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
+            return this.image;
         }
 
         // POST: api/Image
         [HttpPost]
         public IActionResult Post([FromBody] string value)
         {
-            return Ok("asd");
-        }
+//            MLSharpPython ml = new MLSharpPython("C:/Users/mi6o_/AppData/Local/Programs/Python/Python37/python.exe");
+            MLSharpPython ml = new MLSharpPython("C:/Users/Eti Tsvetkova/AppData/Local/Programs/Python/Python37/python.exe");
+            string error = string.Empty;
+            //ml.ExecutePythonScript("", out error);
+            //            ml.ExecutePythonScript("\"B:/Visual Studio Projects/SuperRes/super_resolution/super_resolve.py\"" +
+            //                                   " --model_pth \"B:/Visual Studio Projects/SuperRes/super_resolution/model-basic.pth\"" +
+            //                                   " --input_image \"B:/Visual Studio Projects/SuperRes/super_resolution/out.jpeg\"", out error);
 
-        // PUT: api/Image/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            ml.ExecutePythonScript("\"C:/git/SuperRes/super_resolution/super_resolve.py\"" +
+                                   " --model_pth \"C:/git/SuperRes/super_resolution/model-basic.pth\"" +
+                                    " --input_image " + this.imagePath, out error);
+            using (var stream = System.IO.File.OpenRead(this.imagePath))
+            {
+                this.image = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name))
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = "image/jpeg"
+                };
+            }
+            Console.WriteLine(error);
+            return this.Ok();
         }
     }
 }
