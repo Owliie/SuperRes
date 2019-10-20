@@ -1,7 +1,4 @@
-const {
-    app,
-    BrowserWindow
-} = require('electron')
+const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const url = require('url')
 
@@ -17,7 +14,7 @@ function createWindow() {
         }
     })
 
-    mainWindow.loadFile(
+    mainWindow.loadUrl(
         url.format({
             pathname: path.join(__dirname, './super-resolution-web/dist/super-resolution/index.html'),
             protocol: "file:",
@@ -25,7 +22,7 @@ function createWindow() {
         })
     )
 
-    // mainWindow.setMenu(null)
+    //mainWindow.setMenu(null)
 
     mainWindow.on('closed', function () {
         mainWindow = null
