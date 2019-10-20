@@ -10,11 +10,12 @@ function createWindow() {
         width: 1080,
         height: 720,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js')
+            preload: path.join(__dirname, 'preload.js'),
+            webSecurity: false
         }
     })
 
-    mainWindow.loadUrl(
+    mainWindow.loadFile(
         url.format({
             pathname: path.join(__dirname, './super-resolution-web/dist/super-resolution/index.html'),
             protocol: "file:",
