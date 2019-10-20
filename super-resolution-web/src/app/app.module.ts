@@ -10,6 +10,7 @@ import {AboutUsContentDialogComponent, AboutUsDialogComponent} from './about-us-
 import {ProductContentDialogComponent, ProductDialogComponent} from './product-dialog/product-dialog.component';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
 import {HttpClientModule} from '@angular/common/http';
+import { ImageScalerComponent } from './image-scaler/image-scaler.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {HttpClientModule} from '@angular/common/http';
     AboutUsContentDialogComponent,
     ProductDialogComponent,
     ProductContentDialogComponent,
-    ImageUploadComponent
+    ImageUploadComponent,
+    ImageScalerComponent
   ],
   imports: [
     BrowserModule,

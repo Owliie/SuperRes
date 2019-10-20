@@ -4,12 +4,12 @@
   "description": "Image resolution",
   "main": "main.js",
   "scripts": {
-    "start": "cd super-resolution-web && ng serve",
+    "start": "cd super-resolution-web && ng build && cd .. && electron .",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "electron": "cd .. && electron ." 
+    "electron": "" 
   },
   "repository": {
     "type": "git",
