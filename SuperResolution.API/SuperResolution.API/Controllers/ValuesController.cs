@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SuperResolution.API.PythonExecutor;
 
 namespace SuperResolution.API.Controllers
 {
@@ -14,6 +15,13 @@ namespace SuperResolution.API.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            MLSharpPython ml = new MLSharpPython("C:/Users/mi6o_/AppData/Local/Programs/Python/Python37/python.exe");
+            string error = string.Empty;
+            //ml.ExecutePythonScript("", out error);
+            ml.ExecutePythonScript("\"B:/Visual Studio Projects/SuperRes/super_resolution/super_resolve.py\"" +
+                " --model_pth \"B:/Visual Studio Projects/SuperRes/super_resolution/model-basic.pth\"" +
+                " --input_image \"B:/Visual Studio Projects/SuperRes/super_resolution/out.jpeg\"", out error);
+            Console.WriteLine(error);
             return new string[] { "value1", "value2" };
         }
 
