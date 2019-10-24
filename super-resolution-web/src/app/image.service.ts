@@ -7,14 +7,16 @@ import {catchError} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ImageService {
+  public hasUploadedPhoto = false;
 
   constructor(private http: HttpClient) {
   }
 
-  public uploadImage(image: File): Observable<Response> {
+  public uploadImage(image: File, scale: number): Observable<Response> {
     const formData = new FormData();
 
     formData.append('image', image);
+    formData.append('scale', '' + scale);
 
     return this.http.post<Response>('https://localhost:5001/api/image', formData);
   }

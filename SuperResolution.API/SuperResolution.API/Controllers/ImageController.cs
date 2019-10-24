@@ -14,12 +14,12 @@ namespace SuperResolution.API.Controllers
         [HttpGet]
         public async System.Threading.Tasks.Task<IActionResult> GetAsync()
         {
-            return File(await System.IO.File.ReadAllBytesAsync(Constants.OutputImage), "application/octet-stream");
+            return File(await System.IO.File.ReadAllBytesAsync(Constants.OutputImage), "image/jpeg");
         }
 
         // POST: api/Image
         [HttpPost]
-        public async System.Threading.Tasks.Task<IActionResult> PostAsync([FromForm]IFormFile image)
+        public async System.Threading.Tasks.Task<IActionResult> PostAsync([FromForm]IFormFile image, [FromForm]string scale)
         {
             MLSharpPython ml = new MLSharpPython();
             if (System.IO.File.Exists(Constants.InputImage))
@@ -35,7 +35,8 @@ namespace SuperResolution.API.Controllers
             ml.ExecutePythonScript("../../super_resolution/super_resolve.py " +
                                    $"--model_pth \"{Constants.ModelBasic}\" " +
                                    $"--input_image \"{Constants.InputImage}\" " +
-                                   $"--output_image \"{Constants.OutputImage}\"", out error);
+                                   $"--output_image \"{Constants.OutputImage}\" " +
+                                   $"--scale {scale}", out error);
 
             Console.WriteLine(error);
 

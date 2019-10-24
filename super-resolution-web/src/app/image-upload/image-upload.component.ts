@@ -15,7 +15,7 @@ class ImageSnippet {
   styleUrls: ['./image-upload.component.scss']
 })
 export class ImageUploadComponent {
-
+  scale = 2;
   selectedFile: ImageSnippet;
 
   constructor(private imageService: ImageService, private snackBar: MatSnackBar) {}
@@ -26,6 +26,7 @@ export class ImageUploadComponent {
     this.snackBar.open('Image uploaded successfully!',
       'Dismiss',
       {duration: 2000, panelClass: ['success-snackbar']});
+    this.imageService.hasUploadedPhoto = true;
   }
 
   private onError() {
@@ -46,7 +47,7 @@ export class ImageUploadComponent {
       this.selectedFile = new ImageSnippet(event.target.result, file);
 
       this.selectedFile.pending = true;
-      this.imageService.uploadImage(this.selectedFile.file).subscribe(
+      this.imageService.uploadImage(this.selectedFile.file, this.scale).subscribe(
         (res) => {
           this.onSuccess();
         },
@@ -57,6 +58,14 @@ export class ImageUploadComponent {
     });
 
     reader.readAsDataURL(file);
+  }
+
+  formatLabel(value: number) {
+    return 'x' + Math.pow(2, value);
+  }
+
+  changeScale(event: any) {
+    this.scale = Math.pow(2, event.value);
   }
 
   disposeImage() {

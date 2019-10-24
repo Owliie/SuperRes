@@ -11,7 +11,7 @@ function createWindow() {
         height: 720,
     });
 
-    mainWindow.loadURL('file:///home/martin/Programming/SuperRes/super-resolution-web/dist/super-resolution/index.html');
+    mainWindow.loadURL('file://B:/Visual\ Studio\ Projects/SuperRes/super-resolution-web/dist/super-resolution/index.html');
 
     mainWindow.on('closed', function () {
         mainWindow = null;

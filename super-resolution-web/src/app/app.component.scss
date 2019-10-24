@@ -1,18 +1,20 @@
-.sidenav-content{
+.sidenav-content {
   height: 100vh;
 }
 
-.sidenav{
+.sidenav {
   min-width: 15%;
 }
 
-.sidenav *{
+.sidenav * {
   display: block;
-  margin: 15px 0 5px 30px;
+  margin: 0 25px;
 }
 
-#menu{
+#menu {
   font-size: 20pt;
+  margin-top: 10px;
+  margin-bottom: 30px;
   text-align: center;
+  font-family: 'Nova Square', cursive;
 }
-

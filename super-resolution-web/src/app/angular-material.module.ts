@@ -19,7 +19,8 @@ import {
    MatTooltipModule,
    MatTableModule,
    MatPaginatorModule,
-   MatCardModule
+   MatCardModule,
+   MatSliderModule
 } from '@angular/material';
 
 @NgModule({
@@ -61,7 +62,8 @@ import {
       MatTooltipModule,
       MatTableModule,
       MatPaginatorModule,
-      MatCardModule
+      MatCardModule,
+      MatSliderModule
    ],
    providers: [
       MatDatepickerModule,

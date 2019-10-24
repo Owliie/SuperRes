@@ -1,14 +1,16 @@
+<app-title></app-title>
+
 <mat-drawer-container class="container" autosize>
   <mat-drawer class="sidenav" mode="side" opened="true">
-    <p id="menu">Menu</p>
-    <button mat-button (click)="openContactsDialog()">Contacts</button>
-    <button mat-button (click)="openAboutUsDialog()">About us</button>
-    <button mat-button (click)="openProductDialog()">About the product</button>
+    <p id="menu">SuperResolution</p>
+    <a mat-button (click)="openContactsDialog()">Contacts</a>
+    <a mat-button (click)="openAboutUsDialog()">About us</a>
+    <a mat-button (click)="openProductDialog()">About the product</a>
   </mat-drawer>
 
   <div class="sidenav-content">
-    <app-image-upload></app-image-upload>
-    
+    <app-image-upload *ngIf="!hasUploadedImage()"></app-image-upload>
+    <app-image-scaler *ngIf="hasUploadedImage()"></app-image-scaler>
   </div>
 
 </mat-drawer-container>

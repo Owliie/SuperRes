@@ -1,5 +1,10 @@
 <div *ngIf="!selectedFile || selectedFile.status === 'fail'" class="image-upload-container">
-  <h3>Select an image</h3>
+  <h3>1. Select a scaling factor </h3>
+  <mat-slider min="1" max="3" step="1" value="1" thumbLabel
+  [displayWith]="formatLabel" (input)="changeScale($event)"></mat-slider>
+</div>
+<div *ngIf="!selectedFile || selectedFile.status === 'fail'" class="image-upload-container">
+  <h3>2. Select an image (once you have selected a scale, the conversion will begin automatically.)</h3>
   <br>
   <div class="wrapper">
     <form class="file-upload">
@@ -22,9 +27,9 @@
   <div class="img-preview{{selectedFile.status === 'fail' ? '-error' : ''}}"
        [ngStyle]="{'background-image': 'url('+ selectedFile.src + ')'}">
   </div>
-  <button class="btn btn-warning" *ngIf="selectedFile.status === 'ok'" (click)="disposeImage()">Dispose</button>
 
   <div *ngIf="selectedFile.pending" class="img-loading-overlay">
     <div class="img-spinning-circle"></div>
+
   </div>
 </div>
