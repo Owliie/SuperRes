@@ -14,7 +14,7 @@ namespace SuperResolution.API.Controllers
         [HttpGet]
         public async System.Threading.Tasks.Task<IActionResult> GetAsync()
         {
-            return File(await System.IO.File.ReadAllBytesAsync(Constants.OutputImage), "image/jpeg");
+            return this.File(await System.IO.File.ReadAllBytesAsync(Constants.OutputImage), "image/jpeg");
         }
 
         // POST: api/Image
@@ -35,8 +35,9 @@ namespace SuperResolution.API.Controllers
             ml.ExecutePythonScript("../../super_resolution/super_resolve.py " +
                                    $"--model_pth \"{Constants.ModelBasic}\" " +
                                    $"--input_image \"{Constants.InputImage}\" " +
-                                   $"--output_image \"{Constants.OutputImage}\" " +
-                                   $"--scale {scale}", out error);
+                                   $"--output_image \"{Constants.OutputImage}\" "
+                                   + $"--scale {scale}"
+                , out error);
 
             Console.WriteLine(error);
 

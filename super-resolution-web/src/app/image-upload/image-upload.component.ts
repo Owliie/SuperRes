@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {ImageService} from '../image.service';
-import {MatSnackBar, MatSnackBarRef, SimpleSnackBar} from '@angular/material';
+import {MatSnackBar, SimpleSnackBar} from '@angular/material';
 
 class ImageSnippet {
   pending = false;
   status = 'init';
 
-  constructor(public src: string, public file: File) {}
+  constructor(public src: string, public file: File) {
+  }
 }
 
 @Component({
@@ -15,10 +16,12 @@ class ImageSnippet {
   styleUrls: ['./image-upload.component.scss']
 })
 export class ImageUploadComponent {
+
+  constructor(private imageService: ImageService, private snackBar: MatSnackBar) {
+  }
+
   scale = 2;
   selectedFile: ImageSnippet;
-
-  constructor(private imageService: ImageService, private snackBar: MatSnackBar) {}
 
   private onSuccess() {
     this.selectedFile.pending = false;
@@ -39,14 +42,13 @@ export class ImageUploadComponent {
   }
 
   processFile(imageInput: any) {
-    const file: File = imageInput.files[0];
+    const file = imageInput.files[0];
     const reader = new FileReader();
 
     reader.addEventListener('load', (event: any) => {
-
       this.selectedFile = new ImageSnippet(event.target.result, file);
-
       this.selectedFile.pending = true;
+
       this.imageService.uploadImage(this.selectedFile.file, this.scale).subscribe(
         (res) => {
           this.onSuccess();
@@ -58,6 +60,9 @@ export class ImageUploadComponent {
     });
 
     reader.readAsDataURL(file);
+    reader.onload = (event) => { // called once readAsDataURL is completed
+      this.imageService.changeImage(reader.result);
+    }
   }
 
   formatLabel(value: number) {
@@ -70,5 +75,6 @@ export class ImageUploadComponent {
 
   disposeImage() {
     this.selectedFile = null;
+    this.imageService.hasUploadedPhoto = false;
   }
 }

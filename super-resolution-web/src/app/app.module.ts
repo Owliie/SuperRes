@@ -35,12 +35,13 @@ import { TitleComponent } from './title/title.component';
     HttpClientModule,
     MatSnackBarModule,
     BrowserAnimationsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
   entryComponents: [
     ContactsContentDialogComponent,
     AboutUsContentDialogComponent,
-    ProductContentDialogComponent
+    ProductContentDialogComponent,
+    ImageUploadComponent
   ],
   providers: [],
   bootstrap: [AppComponent],

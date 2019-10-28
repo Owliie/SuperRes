@@ -10,25 +10,25 @@
   color: white;
 
   p {
-    font-size: 36pt;
+    font-size: 1.5em;
   }
 
   h1 {
-    font-size: 56pt;
+    font-size: 5em;
     font-family: 'Nova Square', cursive;
   }
 
   img {
     margin-top: 5em;
-    filter: invert(100%);
+    width: 12%;
   }
 
   button {
     float: right;
     margin-right: 5em;
     background-color: rgb(30, 30, 30);
-    width: 100px;
-    height: 100px;
+    width: 7em;
+    height: 7em;
   }
 }
 

@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {catchError} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageService {
   public hasUploadedPhoto = false;
+  private imageSource = new BehaviorSubject(null);
+  public image = this.imageSource.asObservable();
 
   constructor(private http: HttpClient) {
   }
@@ -19,5 +20,9 @@ export class ImageService {
     formData.append('scale', '' + scale);
 
     return this.http.post<Response>('https://localhost:5001/api/image', formData);
+  }
+
+  public changeImage(image: string | ArrayBuffer) {
+    this.imageSource.next(image);
   }
 }

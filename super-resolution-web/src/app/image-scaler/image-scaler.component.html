@@ -1,5 +1,12 @@
 <div>
-  <img src="../../assets/aldrin.jpg"/>
-  <mat-icon>arrow_forward</mat-icon>
-  <img src="../../assets/aldrin_out.jpg"/>
+  <button (click)="this.imageUploaded.disposeImage()">X</button>
+
+  <table>
+    <tr>
+      <td><img [src]="this.image"></td>
+      <td><span><mat-icon id="arrow">double_arrow</mat-icon></span></td>
+      <td><img src="https://localhost:5001/api/image"></td>
+    </tr>
+  </table>
+
 </div>
