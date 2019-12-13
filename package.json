@@ -27,7 +27,7 @@
   "dependencies": {
     "electron": "git+ssh://git@github.com/johannesjo/electron-prebuilt.git",
     "node": "^12.12.0",
-    "npm": "^6.12.0"
+    "npm": "^6.13.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.803.12",
